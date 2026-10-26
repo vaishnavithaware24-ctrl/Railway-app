@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --navy: #10233F;
+  --rail-blue: #1B3A63;
+  --amber: #E7A339;
+  --paper: #F7F4EC;
+  --ink: #1D1D1B;
+  --track-grey: #6B7280;
+  --line: #D8D2C2;
+  --success: #2F7A4F;
+  --alert: #B23A3A;
+  --card: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 600;
+  margin: 0 0 0.5em;
+}
+
+a { color: var(--rail-blue); }
+
+/* ---- Top bar ---- */
+.topbar {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar .brand {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+.topbar .brand span { color: var(--amber); }
+.topbar nav a {
+  color: #E7E2D3;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 0.92rem;
+}
+.topbar nav a:hover { color: var(--amber); }
+
+/* ---- Layout shell ---- */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+.auth-shell {
+  max-width: 380px;
+  margin: 60px auto;
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+/* ---- Forms ---- */
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--track-grey);
+  margin: 14px 0 4px;
+}
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+}
+input:focus, select:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--rail-blue);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { background: var(--navy); }
+.btn-amber { background: var(--amber); color: var(--navy); font-weight: 600; }
+.btn-amber:hover { background: #d99429; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--rail-blue);
+  color: var(--rail-blue);
+}
+.btn-danger { background: var(--alert); }
+.btn-danger:hover { background: #8f2d2d; }
+.full { width: 100%; margin-top: 18px; }
+
+.error { color: var(--alert); font-size: 0.85rem; margin-top: 10px; }
+.success { color: var(--success); font-size: 0.85rem; margin-top: 10px; }
+
+/* ---- Ticket-style train card ---- */
+.ticket-card {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.ticket-main { flex: 1; padding: 18px 20px; }
+.ticket-main .train-name { font-family: 'Zilla Slab', serif; font-weight: 600; font-size: 1.1rem; }
+.ticket-main .route { color: var(--track-grey); font-size: 0.9rem; margin-top: 4px; }
+.ticket-main .times { display: flex; gap: 26px; margin-top: 10px; font-size: 0.95rem; }
+.ticket-stub {
+  width: 150px;
+  border-left: 2px dashed var(--line);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #FBF9F3;
+}
+.ticket-stub .fare { font-family: 'Zilla Slab', serif; font-size: 1.2rem; font-weight: 600; }
+.ticket-stub .seats { font-size: 0.78rem; color: var(--track-grey); margin: 4px 0 10px; }
+
+/* ---- Seat grid ---- */
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 44px);
+  gap: 10px;
+  margin: 18px 0;
+}
+.seat {
+  width: 44px; height: 44px;
+  border: 1px solid var(--rail-blue);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--rail-blue);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.seat.booked { background: var(--line); color: var(--track-grey); border-color: var(--line); cursor: not-allowed; }
+.seat.selected { background: var(--amber); border-color: var(--amber); color: var(--navy); font-weight: 600; }
+
+/* ---- Table (admin / history) ---- */
+table { width: 100%; border-collapse: collapse; background: var(--card); }
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+th { color: var(--track-grey); font-weight: 500; font-size: 0.8rem; text-transform: none; }
+.status-confirmed { color: var(--success); font-weight: 600; }
+.status-cancelled { color: var(--alert); font-weight: 600; }
+
+.section-title { display: flex; justify-content: space-between; align-items: center; margin: 34px 0 14px; }
+.empty-state { color: var(--track-grey); padding: 30px 0; text-align: center; }

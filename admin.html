@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RRMS — Admin</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">RAIL<span>WAY</span> RRMS <span style="color:#E7A339; font-size:0.75rem;">ADMIN</span></div>
+  <nav><a href="#" id="logoutLink">Log out</a></nav>
+</div>
+
+<div class="page">
+  <h1>Admin panel</h1>
+
+  <div class="section-title"><h3>Reports</h3></div>
+  <div id="reportStats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;"></div>
+
+  <div class="section-title"><h3>Add a train</h3></div>
+  <div class="ticket-card" style="padding:20px;">
+    <form id="trainForm" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; width:100%;">
+      <div><label>Train name</label><input type="text" id="tName" required></div>
+      <div><label>Source</label><input type="text" id="tSource" required></div>
+      <div><label>Destination</label><input type="text" id="tDest" required></div>
+      <div><label>Date</label><input type="date" id="tDate" required></div>
+      <div><label>Time</label><input type="time" id="tTime" required></div>
+      <div><label>Fare (&#8377;)</label><input type="number" id="tFare" required></div>
+      <div><label>Total seats</label><input type="number" id="tSeats" value="30" required></div>
+      <div style="align-self:end;"><button class="btn btn-amber full" type="submit">Add train</button></div>
+    </form>
+  </div>
+
+  <div class="section-title"><h3>Trains</h3></div>
+  <table>
+    <thead><tr><th>Name</th><th>Route</th><th>Date/Time</th><th>Fare</th><th>Seats</th><th></th></tr></thead>
+    <tbody id="trainBody"></tbody>
+  </table>
+
+  <div class="section-title"><h3>Registered users</h3></div>
+  <table>
+    <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+    <tbody id="userBody"></tbody>
+  </table>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  requireLogin(true); // admin-only page
+
+  renderTrainTable();
+  renderUserTable();
+  renderReport();
+
+  document.getElementById("trainForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    addTrain({
+      name: document.getElementById("tName").value,
+      source: document.getElementById("tSource").value,
+      destination: document.getElementById("tDest").value,
+      date: document.getElementById("tDate").value,
+      time: document.getElementById("tTime").value,
+      fare: Number(document.getElementById("tFare").value),
+      totalSeats: Number(document.getElementById("tSeats").value)
+    });
+    e.target.reset();
+    renderReport();
+  });
+
+  document.getElementById("logoutLink").addEventListener("click", (e) => { e.preventDefault(); logoutUser(); });
+</script>
+</body>
+</html>

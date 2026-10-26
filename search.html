@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RRMS — Search Trains</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">RAIL<span>WAY</span> RRMS</div>
+  <nav>
+    <a href="search.html">Search</a>
+    <a href="dashboard.html">My Bookings</a>
+    <a href="#" id="logoutLink">Log out</a>
+  </nav>
+</div>
+
+<div class="page">
+  <h1>Search trains</h1>
+
+  <div class="ticket-card" style="padding:20px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:14px; align-items:end; width:100%;">
+      <div>
+        <label for="source">From</label>
+        <input type="text" id="source" placeholder="e.g. Mumbai">
+      </div>
+      <div>
+        <label for="destination">To</label>
+        <input type="text" id="destination" placeholder="e.g. Pune">
+      </div>
+      <div>
+        <label for="date">Date</label>
+        <input type="date" id="date">
+      </div>
+      <button class="btn btn-amber" id="searchBtn" style="height:41px;">Search</button>
+    </div>
+  </div>
+
+  <div class="section-title"><h3>Available trains</h3></div>
+  <div id="results"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/search.js"></script>
+<script>
+  requireLogin();
+
+  document.getElementById("searchBtn").addEventListener("click", runSearch);
+  document.getElementById("logoutLink").addEventListener("click", (e) => { e.preventDefault(); logoutUser(); });
+
+  renderResults(getTrains());
+</script>
+</body>
+</html>
